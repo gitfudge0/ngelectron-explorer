@@ -1,7 +1,7 @@
 import angular from 'angular';
 import common from './common/common';
 import sh from 'shelljs';
-
+import fs from 'fs.extra';
 angular.module('app', [
   common
 ])
@@ -12,19 +12,15 @@ angular.module('app', [
   .controller("myctrl", ($scope) => {
     'ngInject';
     $scope.name = "IONASDOIANSDOI";
-    sh.cd("C:/Users/dig14/Desktop");
-    let items = sh.ls("-lA");
+    let items = fs.readdirSync("C:/")
     $scope.items = items.map(item => {
       try{
         return {
-          name: item.name,
-          isDirectory: item.locked ? false : item.isDirectory()
+          name: item,
+          isDirectory: fs.lstatSync("C:/" + item).isDirectory()
         }
-      } 
-      finally {
-        // do nothing
+      } catch(err){
+        
       }
-      
-    });
-    console.log(items)
+    })
   })
