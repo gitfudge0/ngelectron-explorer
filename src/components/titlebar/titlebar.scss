@@ -1,0 +1,44 @@
+titlebar {
+    .titlebarcontainer {  
+        -webkit-app-region: drag;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        padding-top: 6px;
+        padding-bottom: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        .no-drag {
+            -webkit-app-region: no-drag;   
+        }
+
+        .appActions {
+            position: relative;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 100%;
+            margin-left: 2px; 
+            margin-right: 2px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            &:hover {
+                box-shadow: 0 0 1px #CCC;
+                transition: all 0.1s ease;
+            }
+        }
+        #appClose {
+            background: #ff534f;
+        }
+        #appSizer {
+            background: #ffbc00;
+        }
+        #appMinimize {
+            background: #00cf1d;
+        }
+    }
+}

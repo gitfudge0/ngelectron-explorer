@@ -4,12 +4,7 @@
  <meta charset="utf-8">
  <title>Hello Electron!</title>
  </head>
- <body ng-controller="myctrl">
-     <ul>
-         <li style="list-style: none;" ng-repeat="item in items track by $index" ng-if="item.isDirectory"><span>[ ]</span> {{item.name}}</li>
-     </ul>
-     <ul>
-         <li style="list-style: none;" ng-repeat="item in items track by $index" ng-if="!item.isDirectory">{{item.name}}</li>
-     </ul>
+ <body>
+     <app></app>
  </body>
 </html>

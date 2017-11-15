@@ -1,26 +1,15 @@
 import angular from 'angular';
 import common from './common/common';
-import sh from 'shelljs';
-import fs from 'fs.extra';
+import appComponent from './app.component';
+import Components from './components/components';
+
 angular.module('app', [
-  common
+  common,
+  Components
 ])
   .config(['$locationProvider', ($locationProvider) => {
     "ngInject";
     $locationProvider.html5Mode(true).hashPrefix('!');
   }])
-  .controller("myctrl", ($scope) => {
-    'ngInject';
-    $scope.name = "IONASDOIANSDOI";
-    let items = fs.readdirSync("C:/")
-    $scope.items = items.map(item => {
-      try{
-        return {
-          name: item,
-          isDirectory: fs.lstatSync("C:/" + item).isDirectory()
-        }
-      } catch(err){
-        
-      }
-    })
-  })
+
+  .component('app', appComponent)

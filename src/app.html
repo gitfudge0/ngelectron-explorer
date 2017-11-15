@@ -1,0 +1,9 @@
+<div class="container">
+    <titlebar></titlebar>
+    <ul>
+        <li style="list-style: none;" ng-repeat="item in $ctrl.items track by $index" ng-if="item.isDirectory"><span>[ ]</span> {{item.name}}</li>
+    </ul>
+    <ul>
+        <li style="list-style: none;" ng-repeat="item in $ctrl.items track by $index" ng-if="!item.isDirectory">{{item.name}}</li>
+    </ul>
+</div>
