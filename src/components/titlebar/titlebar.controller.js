@@ -12,7 +12,8 @@ class titlebarController {
     /**
      * Toggle screen size
      */
-    this.isFullscreen = remote.BrowserWindow.getFocusedWindow().isFullScreen();
+    this.isFullscreen = false;
+
     this.maximizeWindow = () => {
       if(this.isFullscreen) {
         this.isFullscreen = false;

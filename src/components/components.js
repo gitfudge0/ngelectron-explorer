@@ -1,7 +1,9 @@
 import Titlebar from './titlebar/titlebar'
+import Folder from './folder/folder';
 
 let componentModule = angular.module('app.components', [
-  Titlebar
+  Titlebar,
+  Folder
 ])
   .name;
 

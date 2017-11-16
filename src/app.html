@@ -1,9 +1,7 @@
 <div class="container">
     <titlebar></titlebar>
-    <ul>
-        <li style="list-style: none;" ng-repeat="item in $ctrl.items track by $index" ng-if="item.isDirectory"><span>[ ]</span> {{item.name}}</li>
-    </ul>
-    <ul>
-        <li style="list-style: none;" ng-repeat="item in $ctrl.items track by $index" ng-if="!item.isDirectory">{{item.name}}</li>
-    </ul>
+    <div class="content">
+        <h1 class="currentlocation">{{$ctrl.path}}</h1>
+        <folder ng-repeat="item in $ctrl.currentList.folders track by $index">{{item}}</folder>
+    </div>
 </div>
