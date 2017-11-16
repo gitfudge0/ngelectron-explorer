@@ -3,6 +3,6 @@
     <div class="content">
     	<!-- <span class="backButton">←</span> -->
         <h1 class="currentlocation">{{$ctrl.path}}</h1>
-        <folder ng-repeat="item in $ctrl.currentList.folders track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)"></folder>
+        <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)"></directory-item>
     </div>
 </div>

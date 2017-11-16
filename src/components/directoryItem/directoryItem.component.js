@@ -1,6 +1,6 @@
-import template from './folder.html';
-import controller from './folder.controller';
-import './folder.scss';
+import template from './directoryItem.html';
+import controller from './directoryItem.controller';
+import './directoryItem.scss';
 
 let folderComponent = {
   transclude: true,
