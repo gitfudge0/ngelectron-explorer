@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path    = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 let config  = require('../webpack.config');
 
 config.devtool= "source-map";
@@ -44,6 +45,8 @@ config.plugins = [
     name: "vendor",
     minChunks: module => /node_modules/.test(module.resource)
   }),
+
+  new CopyWebpackPlugin([ { from: 'src/assets', to: 'assets' } ])
 ];
 
 module.exports = config;

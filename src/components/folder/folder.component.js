@@ -4,7 +4,9 @@ import './folder.scss';
 
 let folderComponent = {
   transclude: true,
-  bindings: {},
+  bindings: {
+  	details: "="
+  },
   template,
   controller
 }

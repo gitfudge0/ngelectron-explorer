@@ -1,3 +1,6 @@
 <div class="foldercontainer">
-    <span ng-transclude></span>
+	<img ng-src="./assets/img/folder.svg">
+    <span>{{$ctrl.details.name}}</span>
+    <span>{{$ctrl.details.ctime}}</span>
+    <span>{{$ctrl.getlength($ctrl.details.path)}} Items</span>
 </div>
