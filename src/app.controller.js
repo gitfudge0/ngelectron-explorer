@@ -12,13 +12,17 @@ class appController {
     
     // Get list of items in current dir
     this.currentList = fileFactory.getFiles(this.path)
-    console.log(this.currentList)
+
+    // Functions
+    this.changeDirectory = (newItem = "") => {
+      if(newItem == "") {}
+      else if(newItem == -1) {}
+      else {  
+        this.path = this.path + newItem + "/";
+        this.currentList = fileFactory.getFiles(this.path);
+      }
+    }
     
-    fs.lstat(this.path + "bootmgr", (err, stat) => {
-      console.log("aaa", stat)
-    })
-    
-    console.log(fileFactory.getContentLength(this.path))
   }
 }
 

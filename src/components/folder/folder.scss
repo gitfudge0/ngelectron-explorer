@@ -35,6 +35,10 @@ folder .foldercontainer {
         &:nth-child(2) {
             top: 16px;
             left: 72px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 136px;
         }
 
         &:nth-child(4) {

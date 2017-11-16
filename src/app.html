@@ -1,7 +1,8 @@
 <div class="container">
     <titlebar></titlebar>
     <div class="content">
+    	<!-- <span class="backButton">←</span> -->
         <h1 class="currentlocation">{{$ctrl.path}}</h1>
-        <folder ng-repeat="item in $ctrl.currentList.folders track by $index" details="item"></folder>
+        <folder ng-repeat="item in $ctrl.currentList.folders track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)"></folder>
     </div>
 </div>
