@@ -6,4 +6,4 @@ let driveModule = angular.module('drive', [
   .component('drive', driveComponent)
   .name
 
- export default driveModule;
+export default driveModule;

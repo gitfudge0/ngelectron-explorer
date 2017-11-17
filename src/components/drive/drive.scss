@@ -7,34 +7,34 @@ drive .drivecontainer {
     margin-right: 8px;
     margin-bottom: 32px;
     float: left;
-    min-width: 200px;
-    max-width: 200px;
+    min-width: 400px;
+    max-width: 400px;
     position: relative;
 
     img, span {
         float: left;
     }
     img {
-        width: 56px;
+        width: 80px;
         margin: 0 auto;
     }
 
     span {
-        font-size: 14px;
+        font-size: 20px;
         font-weight: 700;
         position: absolute;
 
         &:nth-child(3) {
-            left: 72px;
-            font-size: 11px;
+            left: 108px;
+            font-size: 12px;
             font-weight: 400;
-            top: 32px;
+            top: 40px;
             color: #CCC;
         }
 
         &:nth-child(2) {
             top: 16px;
-            left: 72px;
+            left: 108px;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
@@ -42,9 +42,9 @@ drive .drivecontainer {
         }
 
         &:nth-child(4) {
-            left: 72px;
-            top: 44px;
-            font-size: 11px;
+            left: 108px;
+            top: 56px;
+            font-size: 12px;
             color: #CCC;
             font-weight: 400;
         }

@@ -1,48 +1,82 @@
 import {
-  split, trim, pipe, reject, equals, splitEvery, map, fromPairs, append
+  split, trim, pipe, reject, equals, splitEvery, map, fromPairs, over, lensProp, divide, head, __, toString, replace
 } from 'ramda';
 
 const exec = require('child_process').exec
 
 class appController {
-  constructor(fileFactory) {
+  constructor(fileFactory, $q) {
     'ngInject';
     // Variables and flags
-    this.path = "AOIBDOAISBD";
-    this.driveList = [];
+    this.path = "";
     this.currentList = [];
     this.isDiskPage = true;
-    this.exec = exec
     // Get list of items in current dir
 
     // Functions
+
+    /**
+     * Get the list of drives 
+     * @returns promise
+     */
+    let getDrives = $q((resolve) => {
+      let list = null;
+      exec('wmic logicaldisk get Caption, FreeSpace, Size, VolumeName, FileSystem /format:list', (err, data) => {
+        list = pipe(
+          trim,
+          split("\n"),
+          reject(equals("\r\r")),
+          splitEvery(5),
+          map(
+            map(
+              split("=")
+            )
+          ),
+          map(
+            fromPairs
+          )
+        )(data);
+        list = pipe(
+          map(
+            over(
+              lensProp("FreeSpace"),
+              pipe(
+                divide(__, 1048576),
+                divide(__, 1024),
+                toString,
+                split("."),
+                head
+              )
+            )
+          ),
+          map(
+            over(
+              lensProp("Size"),
+              pipe(
+                divide(__, 1048576),
+                divide(__, 1024),
+                toString,
+                split("."),
+                head
+              )
+            )
+          )
+        )(list);
+        resolve(list)
+      })
+    })
+
+    /**
+     * Change directory
+     * @param {any} newItem = Directory to be navigated to
+     */
     this.changeDirectory = (newItem = "") => {
-      let dl = [];
+      newItem = newItem + "";
       if(newItem == "") {
         this.isDiskPage = true;
-        this.exec('wmic logicaldisk get Caption, FreeSpace, Size /format:list', (err, data) => {
-          let list = pipe(
-            trim,
-            split("\n"),
-            reject(equals("")),
-            splitEvery(3),
-            map(
-              map(
-                split("=")
-              )
-            ),
-            map(
-              fromPairs
-            )
-          )(data);
-          dl = list;
-          console.log(this)
-          
-          console.log("yyy", dl)
-          setTimeout((list) => {
-            this.driveList = list
-          }, 5000)
-          // console.log("xxx", this.driveList)
+        getDrives.then(data => {
+          this.driveList = data;
+          console.log(this.driveList)
         })
       }
       else if(newItem == -1) {
@@ -53,13 +87,19 @@ class appController {
       }
       else {  
         this.isDiskPage = false;
-        this.path = this.path + newItem + "/";
+        if(this.path == "") {
+          this.path = newItem + "/";
+        } else {
+          this.path = this.path + newItem + "/";
+        }
+        this.path = toString(this.path);
+        this.path = replace(/\\r/g,"")(this.path);
+        this.path = replace(/"/g, "", this.path)
+        console.log(this.path)
         this.currentList = fileFactory.getFiles(this.path);
       }
-      // this.driveList = dl;
-      console.log("A12", dl)
-      // console.log("AXYT", this.driveList)
     }
+    // Init call
     this.changeDirectory("");
 
     

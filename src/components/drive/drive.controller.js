@@ -4,3 +4,5 @@ class driveController {
     this.name = "LOL"
   }
 }
+
+export default driveController;

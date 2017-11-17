@@ -6,31 +6,24 @@ import {
 } from 'ramda';
 
 import fs from 'fs.extra';
-const di = require('vox-diskinfo')
 
 let fileFactory = () => {
   'ngInject';
 
   let fileFactoryFunctions = {
-
-    getDriveList: () => {
-     return di.getDrives()
-    },
-
-    getFiles: (path, split = false) => {
-
+    getFiles: (dir, split = false) => {      
       const getFormattedDate = (date) => {
         return date.getDay()+1 + "/" + (date.getMonth().toString()*1+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes()
       } 
 
-      let items = fs.readdirSync(path)
+      let items = fs.readdirSync(dir)
       items = items.map(item => {
         try{
           return {
             name: item,
-            isDirectory: fs.lstatSync(path + item).isDirectory(),
-            ctime: fs.lstatSync(path + item).ctime,
-            path: path + item
+            isDirectory: fs.lstatSync(dir + item).isDirectory(),
+            ctime: fs.lstatSync(dir + item).ctime,
+            dir: dir + item
           }
         } catch(err){}
       })
@@ -50,13 +43,13 @@ let fileFactory = () => {
       return currentList;
     },
 
-    getContentLength: (path) => {
-      let items = fs.readdirSync(path)
+    getContentLength: (dir) => {
+      let items = fs.readdirSync(dir)
       items = items.map(item => {
         try{
           return {
             name: item,
-            isDirectory: fs.lstatSync(path + item).isDirectory()
+            isDirectory: fs.lstatSync(dir + item).isDirectory()
           }
         } catch(err){}
       })

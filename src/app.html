@@ -1,12 +1,8 @@
 <div class="container">
     <titlebar></titlebar>
     <div class="content">
-    	    drive list: {{$ctrl.driveList}}
         <h1 class="currentlocation">{{$ctrl.path}}</h1>
-            drive list: {{$ctrl.driveList}}
-
         <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)" ng-hide="$ctrl.isDiskPage"></directory-item>
-
-        <!-- <drive ng-repeat="item in $ctrl.driveList track by $index" details="item" ng-show="true"></drive> -->
+        <drive ng-repeat="drive in $ctrl.driveList track by $index" details="drive" ng-show="$ctrl.isDiskPage" ng-dblclick="$ctrl.changeDirectory(drive.Caption)"></drive>
     </div>
 </div>

@@ -1,6 +1,6 @@
-<div class="drivecontainer" ng-attr-title="{{$ctrl.details.mounted}}">
+<div class="drivecontainer" ng-attr-title="{{$ctrl.details.Caption}}">
 	<img ng-src="./assets/img/disk.svg">
-    <span>{{$ctrl.details.blocks}}</span>
-    <span>{{$ctrl.details.used}}</span>
-    <!-- <span ng-if="$ctrl.details.isDirectory">{{$ctrl.getlength($ctrl.details.path)}} Items</span> -->
+    <span>{{$ctrl.details.Caption}} {{$ctrl.details.VolumeName}}</span>
+    <span>Free: {{$ctrl.details.FreeSpace}} / {{$ctrl.details.Size}} GB</span>
+    <span>File System: {{$ctrl.details.FileSystem}}</span>
 </div>
