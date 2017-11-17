@@ -1,0 +1,56 @@
+drive .drivecontainer {
+
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 32px;
+    float: left;
+    min-width: 200px;
+    max-width: 200px;
+    position: relative;
+
+    img, span {
+        float: left;
+    }
+    img {
+        width: 56px;
+        margin: 0 auto;
+    }
+
+    span {
+        font-size: 14px;
+        font-weight: 700;
+        position: absolute;
+
+        &:nth-child(3) {
+            left: 72px;
+            font-size: 11px;
+            font-weight: 400;
+            top: 32px;
+            color: #CCC;
+        }
+
+        &:nth-child(2) {
+            top: 16px;
+            left: 72px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 136px;
+        }
+
+        &:nth-child(4) {
+            left: 72px;
+            top: 44px;
+            font-size: 11px;
+            color: #CCC;
+            font-weight: 400;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 3px #999;
+    }
+}

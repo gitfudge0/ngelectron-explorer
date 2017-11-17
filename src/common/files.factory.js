@@ -6,7 +6,7 @@ import {
 } from 'ramda';
 
 import fs from 'fs.extra';
-const diskinfo = require('diskinfo');
+const di = require('vox-diskinfo')
 
 let fileFactory = () => {
   'ngInject';
@@ -14,7 +14,7 @@ let fileFactory = () => {
   let fileFactoryFunctions = {
 
     getDriveList: () => {
-      return diskinfo
+     return di.getDrives()
     },
 
     getFiles: (path, split = false) => {

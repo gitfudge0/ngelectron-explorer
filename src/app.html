@@ -1,8 +1,12 @@
 <div class="container">
     <titlebar></titlebar>
     <div class="content">
-    	<!-- <span class="backButton">←</span> -->
+    	    drive list: {{$ctrl.driveList}}
         <h1 class="currentlocation">{{$ctrl.path}}</h1>
-        <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)"></directory-item>
+            drive list: {{$ctrl.driveList}}
+
+        <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)" ng-hide="$ctrl.isDiskPage"></directory-item>
+
+        <!-- <drive ng-repeat="item in $ctrl.driveList track by $index" details="item" ng-show="true"></drive> -->
     </div>
 </div>
