@@ -6,11 +6,16 @@ import {
 } from 'ramda';
 
 import fs from 'fs.extra';
+const diskinfo = require('diskinfo');
 
 let fileFactory = () => {
   'ngInject';
 
   let fileFactoryFunctions = {
+
+    getDriveList: () => {
+      return diskinfo
+    },
 
     getFiles: (path, split = false) => {
 

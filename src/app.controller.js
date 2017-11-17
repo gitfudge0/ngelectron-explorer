@@ -5,6 +5,11 @@ class appController {
 
     this.path = "C:/";
     
+    fileFactory.getDriveList().getDrives((err, drives) => {
+      this.driveList = drives;
+      console.log(this.driveList)
+    })
+
     // Get list of items in current dir
     this.currentList = fileFactory.getFiles(this.path)
 
