@@ -1,70 +1,58 @@
 import {
-  split, trim, pipe, reject, equals, splitEvery, map, fromPairs, over, lensProp, divide, head, __, toString, replace
+  split, trim, pipe, reject, equals, splitEvery, map, fromPairs, over, lensProp, divide, head, __, toString, replace, init, last, length, gt
 } from 'ramda';
 
-const exec = require('child_process').exec
 
 class appController {
-  constructor(fileFactory, $q) {
+  constructor(fileFactory) {
     'ngInject';
     // Variables and flags
     this.path = "";
+    this.currentDir = "";
     this.currentList = [];
     this.isDiskPage = true;
-    // Get list of items in current dir
+    this.crumb = "My Computer";
+    this.showNavOptions = false;
+    this.navStack = [];
 
     // Functions
+    /**
+     * Converts input directory value into readable string
+     * @param {any} value - Value which has to be converted
+     * returns normalized string
+     */
+    const normalizeString = (value) => {
+      value = toString(value);
+      value = replace(/\\r/g,"")(value);
+      value = replace(/"/g, "", value);
+      return value;
+    }
 
     /**
-     * Get the list of drives 
-     * @returns promise
+     * Sets current directory
+     * @param {string} dir - Current directory
      */
-    let getDrives = $q((resolve) => {
-      let list = null;
-      exec('wmic logicaldisk get Caption, FreeSpace, Size, VolumeName, FileSystem /format:list', (err, data) => {
-        list = pipe(
-          trim,
-          split("\n"),
-          reject(equals("\r\r")),
-          splitEvery(5),
-          map(
-            map(
-              split("=")
-            )
-          ),
-          map(
-            fromPairs
-          )
-        )(data);
-        list = pipe(
-          map(
-            over(
-              lensProp("FreeSpace"),
-              pipe(
-                divide(__, 1048576),
-                divide(__, 1024),
-                toString,
-                split("."),
-                head
-              )
-            )
-          ),
-          map(
-            over(
-              lensProp("Size"),
-              pipe(
-                divide(__, 1048576),
-                divide(__, 1024),
-                toString,
-                split("."),
-                head
-              )
-            )
-          )
-        )(list);
-        resolve(list)
-      })
-    })
+    this.setPathValues = (dir) => {
+      this.currentDir = dir;
+      this.showNavOptions = true;
+    }
+
+    /**
+     * Go back a folder
+     */
+    this.goBack = () => {
+      let tempStack = init(this.navStack);
+        console.log("tempStack", tempStack)
+      // if(last(tempStack) != last(this.navStack)) {
+      //   this.navStack = init(this.navStack);
+      // }
+      if(gt(length(tempStack), 0)) {
+        this.path = last(tempStack);
+        this.crumb = this.path;
+        this.currentList = fileFactory.getFiles(this.path)
+        console.log("navStack", this.navStack)
+      }
+    }
 
     /**
      * Change directory
@@ -72,31 +60,38 @@ class appController {
      */
     this.changeDirectory = (newItem = "") => {
       newItem = newItem + "";
+      this.isDiskPage = false;
+      this.showNavOptions = true;
+
+      // Navigations
       if(newItem == "") {
+        this.showNavOptions = false;
         this.isDiskPage = true;
-        getDrives.then(data => {
+        fileFactory.getDrives.then(data => {
           this.driveList = data;
           console.log(this.driveList)
         })
-      }
-      else if(newItem == -1) {
-        this.isDiskPage = false;
-      }
-      else if(newItem == 1) {
-        this.isDiskPage = false;
-      }
-      else {  
-        this.isDiskPage = false;
-        if(this.path == "") {
-          this.path = newItem + "/";
-        } else {
-          this.path = this.path + newItem + "/";
-        }
-        this.path = toString(this.path);
-        this.path = replace(/\\r/g,"")(this.path);
-        this.path = replace(/"/g, "", this.path)
-        console.log(this.path)
+      } else if(this.currentDir == newItem) {
+        this.path = newItem + "/";
+        this.path = normalizeString(this.path); // Normalize path string
+        this.crumb = this.path; // Update breadcrumb
         this.currentList = fileFactory.getFiles(this.path);
+      } else {
+        this.path = this.path + newItem + "/";
+        this.path = normalizeString(this.path); // Normalize path string
+        this.currentList = fileFactory.getFiles(this.path);
+      }
+
+      // // Update navigation stack
+      // if(this.path != last(init(this.navStack)) && gt(length(this.navStack), 1)) {
+      //   this.navStack = init(this.navStack)
+      // }
+      this.navStack.push(this.path)
+      console.log(this.navStack)
+
+      // Show navigation options
+      if(this.showNavOptions) {
+        this.crumb = this.path; // Update breadcrumb
       }
     }
     // Init call

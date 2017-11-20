@@ -1,7 +1,6 @@
 class folderController {
   constructor(fileFactory) {
   	'ngInject';
-  	
   }
 }
 
