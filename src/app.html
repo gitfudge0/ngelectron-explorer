@@ -3,8 +3,8 @@
     <div class="content">
         <ul class="nav" ng-show="$ctrl.showNavOptions">
             <li class="fa fa-arrow-left" ng-click="$ctrl.goBack()"></li>
-            <li class="fa fa-arrow-right"></li>
-            <li class="fa fa-home"></li>
+            <li class="fa fa-arrow-right" ng-click="$ctrl.goForward()"></li>
+            <li class="fa fa-home" ng-click="$ctrl.goHome()"></li>
         </ul>
         <h1 class="currentlocation">{{$ctrl.crumb}}</h1>
         <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)" ng-hide="$ctrl.isDiskPage"></directory-item>

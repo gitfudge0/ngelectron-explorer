@@ -1,5 +1,5 @@
 import {
-  split, trim, pipe, reject, equals, splitEvery, map, fromPairs, over, lensProp, divide, head, __, toString, replace, init, last, length, gt
+  toString, replace, length, take
 } from 'ramda';
 
 
@@ -14,6 +14,7 @@ class appController {
     this.crumb = "My Computer";
     this.showNavOptions = false;
     this.navStack = [];
+    this.currentPos = 0;
 
     // Functions
     /**
@@ -41,17 +42,46 @@ class appController {
      * Go back a folder
      */
     this.goBack = () => {
-      let tempStack = init(this.navStack);
-        console.log("tempStack", tempStack)
-      // if(last(tempStack) != last(this.navStack)) {
-      //   this.navStack = init(this.navStack);
-      // }
-      if(gt(length(tempStack), 0)) {
-        this.path = last(tempStack);
-        this.crumb = this.path;
-        this.currentList = fileFactory.getFiles(this.path)
-        console.log("navStack", this.navStack)
+      this.currentPos -= 1;
+      console.log(this.currentPos)
+      if(this.currentPos == 1) {
+        this.changeDirectory("")
+        this.crumb = "My Computer";
+      } else if(this.currentPos < 0) {
+        this.currentPos = 0;
+      } else {
+        let tempStackPost = this.navStack[this.currentPos - 1];
+        if(angular.isDefined(tempStackPost)) {
+          this.path = tempStackPost;
+          this.currentList = fileFactory.getFiles(tempStackPost);
+          this.crumb = tempStackPost;
+        }
       }
+    }
+
+    /**
+     * Go forward a folder
+     */
+    this.goForward = () => {
+      console.log(this.currentPos);
+      if(this.currentPos > length(this.navStack)) {
+        this.currentPos = length(this.navStack)
+      } else {
+        let tempStackPost = this.navStack[this.currentPos];
+        if(angular.isDefined(tempStackPost)) {
+          this.path = tempStackPost;
+          this.currentList = fileFactory.getFiles(tempStackPost);
+          this.crumb = tempStackPost;
+        }
+        this.currentPos += 1;
+      }
+    }
+
+    /**
+     * Go to home 
+     */
+    this.goHome = () => {
+      this.changeDirectory("");
     }
 
     /**
@@ -59,33 +89,37 @@ class appController {
      * @param {any} newItem = Directory to be navigated to
      */
     this.changeDirectory = (newItem = "") => {
+      this.currentPos += 1;
       newItem = newItem + "";
       this.isDiskPage = false;
       this.showNavOptions = true;
 
       // Navigations
       if(newItem == "") {
-        this.showNavOptions = false;
-        this.isDiskPage = true;
         fileFactory.getDrives.then(data => {
           this.driveList = data;
           console.log(this.driveList)
         })
+        this.showNavOptions = false;
+        this.isDiskPage = true;
+        this.crumb = "My Computer";
+        this.navStack = [];
+        this.currentPos = 1;
+        this.path = "";
       } else if(this.currentDir == newItem) {
         this.path = newItem + "/";
         this.path = normalizeString(this.path); // Normalize path string
-        this.crumb = this.path; // Update breadcrumb
         this.currentList = fileFactory.getFiles(this.path);
       } else {
         this.path = this.path + newItem + "/";
         this.path = normalizeString(this.path); // Normalize path string
+        console.log(this.navStack[this.currentPos - 1])
+        if(this.navStack[this.currentPos - 1] != this.path) {
+          this.navStack = take(this.currentPos - 1, this.navStack);
+        }
         this.currentList = fileFactory.getFiles(this.path);
       }
 
-      // // Update navigation stack
-      // if(this.path != last(init(this.navStack)) && gt(length(this.navStack), 1)) {
-      //   this.navStack = init(this.navStack)
-      // }
       this.navStack.push(this.path)
       console.log(this.navStack)
 
