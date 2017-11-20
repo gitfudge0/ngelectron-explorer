@@ -25,10 +25,29 @@ html, body {
         padding: 32px;
         overflow-y: auto;
 
+        ul.nav {
+            margin: 0;
+            margin-left: 12px;
+            padding: 0;
+            display: inline-block;
+
+            li {
+                list-style: none;
+                display: inline-block;
+                padding: 4px 5px;
+                cursor: pointer;
+                border-radius: 3px;
+
+                &:hover {
+                    box-shadow: 0 0 3px #CCC;
+                }
+            }
+        }
+
         .currentlocation {
-            padding: 16px;
+            padding: 8px 16px;
             font-weight: 900;
-            margin-bottom: 32px;
+            margin-bottom: 16px;
             margin-top: 0;
         }
     }

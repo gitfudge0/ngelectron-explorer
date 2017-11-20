@@ -10,6 +10,7 @@ drive .drivecontainer {
     min-width: 400px;
     max-width: 400px;
     position: relative;
+    transition: all 0.05s ease;
 
     img, span {
         float: left;
@@ -52,5 +53,6 @@ drive .drivecontainer {
 
     &:hover {
         box-shadow: 0 0 3px #999;
+        transition: all 0.05s ease;
     }
 }

@@ -1,6 +1,11 @@
 <div class="container">
     <titlebar></titlebar>
     <div class="content">
+        <ul class="nav">
+            <li class="fa fa-arrow-left"></li>
+            <li class="fa fa-arrow-right"></li>
+            <li class="fa fa-home"></li>
+        </ul>
         <h1 class="currentlocation">{{$ctrl.path}}</h1>
         <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name)" ng-hide="$ctrl.isDiskPage"></directory-item>
         <drive ng-repeat="drive in $ctrl.driveList track by $index" details="drive" ng-show="$ctrl.isDiskPage" ng-dblclick="$ctrl.changeDirectory(drive.Caption)"></drive>
