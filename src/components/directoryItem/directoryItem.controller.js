@@ -1,6 +1,9 @@
 class folderController {
   constructor(fileFactory) {
-  	'ngInject';
+    'ngInject';
+    this.getlength = (dir) => {
+      return fileFactory.getContentLength(dir)
+    }
   }
 }
 

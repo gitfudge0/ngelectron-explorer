@@ -3,5 +3,5 @@
 	<img ng-src="./assets/img/file.svg" ng-if="!$ctrl.details.isDirectory">
     <span>{{$ctrl.details.name}}</span>
     <span>{{$ctrl.details.ctime}}</span>
-    <span ng-if="$ctrl.details.isDirectory">{{$ctrl.getlength($ctrl.details.path)}} Items</span>
+    <span ng-if="$ctrl.details.isDirectory">{{$ctrl.getlength($ctrl.details.dir)}} Items</span>
 </div>

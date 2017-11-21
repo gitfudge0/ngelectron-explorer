@@ -10,18 +10,26 @@ class titlebarController {
     }
 
     /**
-     * Toggle screen size
+     * Maximize or unmaximize window
      */
-    this.isFullscreen = false;
-
+    this.isMaximized = false;
     this.maximizeWindow = () => {
-      if(this.isFullscreen) {
-        this.isFullscreen = false;
-        remote.BrowserWindow.getFocusedWindow().setSize(1200, 700);
+      const window = remote.getCurrentWindow();
+      if(!this.isMaximized) {
+        window.maximize();
+        this.isMaximized = true;
       } else {
-        this.isFullscreen = true;
-        remote.BrowserWindow.getFocusedWindow().setFullScreen(true);
+        window.unmaximize();
+        this.isMaximized = false;
       }
+    }
+
+    /**
+     * Close window
+     */
+    this.close = () => {
+      const window = remote.getCurrentWindow()
+      window.close()
     }
   }
 }

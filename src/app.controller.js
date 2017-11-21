@@ -43,7 +43,6 @@ class appController {
      */
     this.goBack = () => {
       this.currentPos -= 1;
-      console.log(this.currentPos)
       if(this.currentPos == 1) {
         this.changeDirectory("")
         this.crumb = "My Computer";
@@ -63,7 +62,6 @@ class appController {
      * Go forward a folder
      */
     this.goForward = () => {
-      console.log(this.currentPos);
       if(this.currentPos > length(this.navStack)) {
         this.currentPos = length(this.navStack)
       } else {
@@ -121,7 +119,6 @@ class appController {
       }
 
       this.navStack.push(this.path)
-      console.log(this.navStack)
 
       // Show navigation options
       if(this.showNavOptions) {
