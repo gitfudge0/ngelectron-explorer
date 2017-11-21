@@ -8,7 +8,7 @@ A file explorer built on AngularJS and Electron with a fresh yet familiar look.
 
 ## Application screenshot
 
-![Image of app](https://github.com/thediggu/ngelectron-explorer/blob/master/demo.JPG?raw=true)
+![Image of app](https://github.com/thediggu/ngelectron-explorer/blob/develop/demo.JPG?raw=true)
 
 ## Dev scripts
 
