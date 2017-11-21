@@ -18,12 +18,11 @@ html, body {
     background: #fafafc;
     border-radius: 8px;
 
-    .content {
-        box-sizing: border-box;
-        width: 100%;
-        height: 96vh;
+    .header {
         padding: 32px;
-        overflow-y: auto;
+        padding-bottom: 2px;
+        position: fixed;
+        width: 100%;
 
         ul.nav {
             margin: 0;
@@ -53,6 +52,16 @@ html, body {
                 font-size: 20px;
             }
         }
+    }
+
+    .content {
+        box-sizing: border-box;
+        width: 100%;
+        height: 96vh;
+        padding: 32px;
+        padding-top: 2px;
+        margin-top: 132px;
+        overflow-y: auto;       
     }
 }
 * {

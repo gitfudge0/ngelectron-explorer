@@ -21,8 +21,8 @@ function createWindow () {
       height: 700,
       minWidth: 1100,
       minHeight: 700,
-      frame: false,
-      transparent: true
+      transparent: true,
+      frame: false
     }
   )
 

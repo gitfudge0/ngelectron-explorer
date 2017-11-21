@@ -86,43 +86,45 @@ class appController {
      * Change directory
      * @param {any} newItem = Directory to be navigated to
      */
-    this.changeDirectory = (newItem = "") => {
-      this.currentPos += 1;
-      newItem = newItem + "";
-      this.isDiskPage = false;
-      this.showNavOptions = true;
+    this.changeDirectory = (newItem = "", isDirectory = true) => {
+      if(isDirectory) {
+        this.currentPos += 1;
+        newItem = newItem + "";
+        this.isDiskPage = false;
+        this.showNavOptions = true;
 
-      // Navigations
-      if(newItem == "") {
-        fileFactory.getDrives.then(data => {
-          this.driveList = data;
-          console.log(this.driveList)
-        })
-        this.showNavOptions = false;
-        this.isDiskPage = true;
-        this.crumb = "My Computer";
-        this.navStack = [];
-        this.currentPos = 1;
-        this.path = "";
-      } else if(this.currentDir == newItem) {
-        this.path = newItem + "/";
-        this.path = normalizeString(this.path); // Normalize path string
-        this.currentList = fileFactory.getFiles(this.path);
-      } else {
-        this.path = this.path + newItem + "/";
-        this.path = normalizeString(this.path); // Normalize path string
-        console.log(this.navStack[this.currentPos - 1])
-        if(this.navStack[this.currentPos - 1] != this.path) {
-          this.navStack = take(this.currentPos - 1, this.navStack);
+        // Navigations
+        if(newItem == "") {
+          fileFactory.getDrives.then(data => {
+            this.driveList = data;
+            console.log(this.driveList)
+          })
+          this.showNavOptions = false;
+          this.isDiskPage = true;
+          this.crumb = "My Computer";
+          this.navStack = [];
+          this.currentPos = 1;
+          this.path = "";
+        } else if(this.currentDir == newItem) {
+          this.path = newItem + "/";
+          this.path = normalizeString(this.path); // Normalize path string
+          this.currentList = fileFactory.getFiles(this.path);
+        } else {
+          this.path = this.path + newItem + "/";
+          this.path = normalizeString(this.path); // Normalize path string
+          console.log(this.navStack[this.currentPos - 1])
+          if(this.navStack[this.currentPos - 1] != this.path) {
+            this.navStack = take(this.currentPos - 1, this.navStack);
+          }
+          this.currentList = fileFactory.getFiles(this.path);
         }
-        this.currentList = fileFactory.getFiles(this.path);
-      }
 
-      this.navStack.push(this.path)
+        this.navStack.push(this.path)
 
-      // Show navigation options
-      if(this.showNavOptions) {
-        this.crumb = this.path; // Update breadcrumb
+        // Show navigation options
+        if(this.showNavOptions) {
+          this.crumb = this.path; // Update breadcrumb
+        }
       }
     }
     // Init call
