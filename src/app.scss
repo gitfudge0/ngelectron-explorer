@@ -49,6 +49,9 @@ html, body {
             font-weight: 900;
             margin-bottom: 16px;
             margin-top: 0;
+            &.small {
+                font-size: 20px;
+            }
         }
     }
 }
