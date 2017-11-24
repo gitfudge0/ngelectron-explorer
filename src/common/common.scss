@@ -2,3 +2,28 @@
 ul {
     margin: 0;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: 0;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: #1AAEEE;
+  outline: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+input {
+    border: 0;
+    background: transparent;
+    padding: 2px;
+    &:focus {
+        outline: 0;
+    }
+}

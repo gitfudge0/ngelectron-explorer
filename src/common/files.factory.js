@@ -74,8 +74,12 @@ let fileFactory = ($q) => {
       const getFormattedDate = (date) => {
         return date.getDay()+1 + "/" + (date.getMonth().toString()*1+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes()
       } 
-
-      let items = fs.readdirSync(dir)
+      let items = null;
+      try {
+        items = fs.readdirSync(dir)
+      } catch(err) {
+        return ["err"];
+      }
       items = items.map(item => {
         try{
           return {

@@ -15,6 +15,7 @@ class appController {
     this.showNavOptions = false;
     this.navStack = [];
     this.currentPos = 0;
+    this.showEditableCrumb = true;
 
     // Functions
     /**
@@ -112,7 +113,6 @@ class appController {
         } else {
           this.path = this.path + newItem + "/";
           this.path = normalizeString(this.path); // Normalize path string
-          console.log(this.navStack[this.currentPos - 1])
           if(this.navStack[this.currentPos - 1] != this.path) {
             this.navStack = take(this.currentPos - 1, this.navStack);
           }
@@ -130,6 +130,25 @@ class appController {
     // Init call
     this.changeDirectory("");
 
+    /**
+     * Changes directory with path on ENTER
+     */
+    this.changeWithPath = () => {
+      
+      let tempList = fileFactory.getFiles(this.crumb)
+      console.log(tempList)
+      if(tempList[0] == "err") {
+        console.log(this.currentPos)
+        console.log(this.navStack)
+        this.path = this.navStack[this.currentPos - 1];
+        this.crumb = this.path;
+      } else {
+        this.currentPos += 1;
+        this.path = this.crumb  
+        this.navStack.push(this.path)
+        this.currentList = tempList;
+      }
+    }
     
   }
 }

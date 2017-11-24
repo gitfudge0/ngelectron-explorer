@@ -5,12 +5,14 @@
             <li class="fa fa-arrow-left" ng-click="$ctrl.goBack()"></li>
             <li class="fa fa-arrow-right" ng-click="$ctrl.goForward()"></li>
             <li class="fa fa-home" ng-click="$ctrl.goHome()"></li>
+            <li><input type="text" placeholder="Search" ng-model="$ctrl.searchTerm"></li>
         </ul>
-        <h1 class="currentlocation" ng-class="{small: $ctrl.crumb.length > 60}">{{$ctrl.crumb}}</h1>
+        <!-- <h1 class="currentlocation" ng-class="{small: $ctrl.crumb.length > 60}" ng-click="$ctrl.toggleEdit()"" ng-hide="$ctrl.showEditableCrumb">{{$ctrl.crumb}}</h1> -->
+        <input id="editcrumb" type="text" ng-model="$ctrl.crumb" onClick="this.select();" ng-class="{small: $ctrl.crumb.length > 60}" ng-keyup="$event.keyCode == 13 ? $ctrl.changeWithPath() : null">
     </div>
 
     <div class="content">
-        <directory-item ng-repeat="item in $ctrl.currentList track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name, item.isDirectory)" ng-hide="$ctrl.isDiskPage"></directory-item>
+        <directory-item ng-repeat="item in $ctrl.currentList | filter:$ctrl.searchTerm track by $index" details="item" ng-dblclick="$ctrl.changeDirectory(item.name, item.isDirectory)" ng-hide="$ctrl.isDiskPage"></directory-item>
         <drive ng-repeat="drive in $ctrl.driveList track by $index" details="drive" ng-show="$ctrl.isDiskPage" ng-dblclick="$ctrl.setPathValues(drive.Caption);$ctrl.changeDirectory(drive.Caption);"></drive>
     </div>
 </div>
